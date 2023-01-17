@@ -25,7 +25,7 @@ namespace CarTaxSystem
             Console.Write("Please input the car's emission levels (0 - 100): ");
             CarOne.emissions = int.Parse(Console.ReadLine());
 
-            int tax_owed = CarOne.CalculateTax(); // This run the CalculateTax function in the Car class, which returns the tax owed.
+            int tax_owed = CarOne.CalculateTax(); // This runs the CalculateTax function in the Car class, which returns the tax owed.
 
             Console.Write($"\nFor your {CarOne.car_make} {CarOne.car_model} (fuel type: {CarOne.fuel_type}), you owe £{tax_owed}.\n");
         }
