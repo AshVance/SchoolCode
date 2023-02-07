@@ -1,8 +1,5 @@
 using System;
 using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 /* Enemy.cs Class Parameters:
 Holds weapon (bool) - hold_weapon
@@ -11,22 +8,43 @@ Is alive (bool) - headshot_only
 Health (integer) - health
 */
 
-namespace TextGame
+namespace TextGame // Change to namespace TextGame when uploading to GitHub.
 {
     class TextGameMain
     {
         #region Main
         static void Main(string[] args)
         {
-            EnemyEncounter();
+            Console.Write("Welcome to a text-based adventure game.\n");
+            while (true)
+            {
+                Console.Write("\n1 - Simulate Combat\n9 - Quit\nPlease make a selection: ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        int player_hp = 100;
+                        EnemyEncounter(player_hp);
+                        break;
+                    case "9":
+                        Console.Write("\n\nThank you for trying my game....\n");
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.Write("\nInvalid input. Please try again...\n");
+                        Thread.Sleep(1000);
+                        break;
+                }
+            }
         }
         #endregion
 
         #region Encounter Master Program
-        static void EnemyEncounter()
+        static void EnemyEncounter(int player_hp)
         {
+            // Change this so parameters are dynamic
             Enemy alien = new Enemy();
-            alien.HoldWeapon = false;
+            alien.HoldWeapon = true;
             alien.HeadshotOnly = false;
             alien.IsAlive = true;
             alien.Health = 100;
@@ -41,13 +59,14 @@ namespace TextGame
                 Run - low chance of running away and avoiding damage */
                 Console.Write("\nYou can attack (a), attempt to dodge (d) or attempt to run (r): ");
                 string choice = Console.ReadLine().ToLower();
-                
+
                 switch (choice)
                 {
                     case "a": // Attack
                         Random rnd = new Random();
                         int damage = rnd.Next(4, 8) * 10; // Possible damages (40, 50, 60, 70, 80)
-                        Console.Write($"\n{FlavTextGeneration(choice)}");
+                        alien.Health -= damage;
+                        Console.Write($"\n{FlavTextGeneration(choice)}\nIts remaining HP is {alien.Health}.\n");
                         break;
                     case "d": // Dodge
                         // dodge logic
@@ -56,9 +75,24 @@ namespace TextGame
                         // run logic
                         break;
                     default:
-                        Console.Write("Invalid choice! Please try again...\n");
+                        Console.Write("\nInvalid choice! Please try again...\n");
                         Thread.Sleep(1000);
                         break;
+                }
+
+                if (player_hp <= 0)
+                {
+                    Console.Write("\nYou've died! Better luck next time...\n");
+                    Thread.Sleep(1000);
+                    Environment.Exit(0);
+                }
+
+                if (alien.Health <= 0)
+                {
+                    Console.Write($"\nNice! The alien is dead! Your remaining HP is {player_hp}.");
+                    alien.IsAlive = false;
+                    Thread.Sleep(3000);
+                    Console.Clear();
                 }
             }
         }
