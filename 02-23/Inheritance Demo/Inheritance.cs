@@ -30,7 +30,10 @@ namespace Inheritance
             Car new_car = new Car();
 
             // Call the honk() method (from the Vehicle class) on the new_car object
+            new_car.honk();
 
+            // Display the value of the brand field (from the Vehicle class) and the value of the modelName from the Car class
+            Console.WriteLine(new_car.brand + " " + new_car.model_name);
         }
     }
     #endregion
