@@ -1,4 +1,5 @@
 // Modified code from the "U11.3 - Read" powerpoint.
+// Accesses the "inventory.csv" file.
 using System;
 using System.IO;
 
